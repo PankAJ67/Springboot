@@ -1,0 +1,48 @@
+package com.hrms.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.hrms.dto.EmployeeDto;
+import com.hrms.entity.Employee;
+import com.hrms.service.EmployeeService;
+
+@RestController
+public class EmployeeController {
+
+	@Autowired
+	private EmployeeService employeeService;
+
+	@PostMapping("/employee/add")
+	public void createEmployee(@RequestBody Employee employee) {
+		System.out.println(employee);
+		Employee employee2 = employeeService.createEmployee(employee);
+		System.out.println("controller");
+	}
+
+// update it with UserDto
+	@GetMapping("/employee/{id}")
+	public ResponseEntity<EmployeeDto> getUser(@PathVariable("id") int Id) {
+		EmployeeDto userDto = this.employeeService.getEmployee(Id);
+		System.out.println("one");
+		return new ResponseEntity<EmployeeDto>(userDto, HttpStatus.OK);
+
+	}
+	
+	
+	 @GetMapping("/employee/get")
+	    public ResponseEntity<List<EmployeeDto>> getAllEmployee(){
+		 List<EmployeeDto> users = employeeService.getAllEmployee();
+	    return new ResponseEntity<>(users, HttpStatus.OK);    
+	        
+	    }
+
+}

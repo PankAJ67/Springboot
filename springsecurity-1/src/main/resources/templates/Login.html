@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+	<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+		<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<th:block th:if="${param.error}">
+	<p>invalid detail</p>
+	
+</th:block>
+<centre>
+<form  method="post"  action="/login">
+  <div class="container">
+    <label for="username"><b>username</b></label>
+    <input type="email" placeholder="Enter Username" name="username" required>
+
+<br>
+
+    <label for="password"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" required>
+<br>
+    <button type="submit">submit</button>
+    </centre>
+  </div>
+
+  </div>
+</form>
+
+</body>
+</html>
+
+
+
+

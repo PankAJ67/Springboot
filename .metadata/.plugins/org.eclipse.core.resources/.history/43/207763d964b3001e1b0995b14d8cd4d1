@@ -1,0 +1,5 @@
+package com.studentapp.entities;
+
+public class Laptop {
+
+}

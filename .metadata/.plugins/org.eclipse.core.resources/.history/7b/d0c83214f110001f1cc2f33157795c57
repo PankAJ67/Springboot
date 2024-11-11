@@ -1,0 +1,31 @@
+package com.hrms.service;
+
+import java.util.List;
+
+import com.hrms.dto.ProjectDto;
+import com.hrms.dto.UploadDto;
+
+public interface uploadService {
+	
+
+
+	public ProjectDto createProject(ProjectDto projectdto);
+
+public ProjectDto getProject(long Id);
+
+List<ProjectDto> getAllProject();
+
+void deleteProject(long id);
+	
+public ProjectDto updateProject(long id, ProjectDto  project);		
+   
+
+	
+	
+	
+	
+public UploadDto upload(String path);
+	
+	
+
+}

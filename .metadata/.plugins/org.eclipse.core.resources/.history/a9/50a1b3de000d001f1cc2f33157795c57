@@ -1,0 +1,27 @@
+package com.project.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.project.dto.ProjectDto;
+
+@Service 
+public interface ProjectService {
+	
+
+
+		public ProjectDto createEmployee(ProjectDto projectdto);
+
+		public ProjectDto getEmployee(int Id);
+
+		List<ProjectDto> getAllEmployee();
+		
+		void deletePost(int id);
+		
+		public ProjectDto updateEmployee(int id, ProjectDto  project);
+
+		
+	     
+
+}

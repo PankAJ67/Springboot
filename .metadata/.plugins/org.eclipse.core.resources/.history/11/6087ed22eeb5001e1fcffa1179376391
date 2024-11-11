@@ -1,0 +1,5 @@
+package com.spring.loginservice;
+
+public class LoginService {
+
+}

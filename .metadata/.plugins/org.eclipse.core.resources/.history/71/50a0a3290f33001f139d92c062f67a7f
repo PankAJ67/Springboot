@@ -1,0 +1,5 @@
+package com.onlinebooking.utils;
+
+public class JwtUtil {
+
+}

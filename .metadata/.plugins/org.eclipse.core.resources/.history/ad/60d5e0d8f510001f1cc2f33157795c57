@@ -1,0 +1,62 @@
+package com.hrms.service.impl;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.hrms.dto.UploadDto;
+import com.hrms.entity.Project;
+import com.hrms.repo.ProjectRepo;
+import com.hrms.service.uploadService;
+
+
+@Service
+public class uploadServiceImpl implements uploadService {
+	
+
+	@Autowired
+	private ProjectRepo projectRepository;
+
+	@Autowired
+	private ModelMapper modelMapper;
+
+	@Override
+	public UploadDto upload(String path, MultipartFile file) {
+		private final String   FOLDER_PATH = "D:/upload/";
+
+
+
+
+		@PostMapping("project/upload")
+		public ResponseEntity<Object> uploadfile(@RequestParam("file")MultipartFile file) throws  IOException{
+			
+			
+			
+			String path  = FOLDER_PATH + file.getOriginalFilename();
+			
+			Project item = Project.builder()
+					.fileName(file.getOriginalFilename())
+					.fileType(file.getContentType())
+				.fileLocation(path)
+					
+					.filepath(file)
+					.build();
+			 repository.save(item);
+		file.transferTo(new File(path).toPath()) ;
+		return ResponseEntity.status(HttpStatus.OK).body("file uppload "+path);
+		} 
+		
+		return null;
+	}
+
+
+
+}

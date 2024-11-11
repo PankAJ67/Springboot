@@ -1,0 +1,21 @@
+package com.hrms.dto;
+
+
+
+import com.hrms.entity.Project;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class UploadDto {
+	
+	private String filepath;
+	
+	
+	
+
+}

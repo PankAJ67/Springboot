@@ -1,0 +1,48 @@
+package com.hrms.dto;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import com.hrms.entity.Project;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class EmployeeDto {
+	
+
+	private Long MobileNumber;
+	private LocalDate dateOfBirth;
+	private String Nationality;
+
+	@Column(unique=true)
+	private String emailAddress;
+	private String address;
+	private String city;
+    private int salary;
+	private String EmployeeType;
+	private String officeLocation;
+	private String designation;
+	private int workingDays;
+	private String department;
+	private LocalDate JoiningDate;
+
+	@ManyToMany( cascade= CascadeType.ALL)
+	@JoinTable(
+	    name = "Employee_Project",
+	    joinColumns = { @JoinColumn(name= "employee_id", referencedColumnName="Employee_Id") },
+	    inverseJoinColumns = { @JoinColumn(name= "project_id", referencedColumnName="id") }
+	)
+	private List<Project> project;
+	
+
+}

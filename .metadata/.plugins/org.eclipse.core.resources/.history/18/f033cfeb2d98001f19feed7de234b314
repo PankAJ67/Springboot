@@ -1,0 +1,55 @@
+package com.hrms.service.impl;
+
+import java.time.LocalDate;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.hrms.dto.DeclaredHolidayDTO;
+import com.hrms.entity.DeclaredHoliday;
+import com.hrms.entity.Employee;
+import com.hrms.exception.ResourceNotFoundException;
+import com.hrms.repo.DeclaredHolidayRepository;
+import com.hrms.repo.EmployeeRepository;
+import com.hrms.service.DeclaredHolidayService;
+
+@Service
+public class DeclaredHolidayServiceImplServiceImpl implements DeclaredHolidayService {
+
+	@Autowired
+	private DeclaredHolidayRepository holidayRepo;
+
+	@Autowired
+	private EmployeeRepository empRepo;
+
+	@Autowired
+	private ModelMapper mapper;
+
+	@Override
+	public DeclaredHolidayDTO addAttendanceOnSpecificDate(String empId, DeclaredHolidayDTO holidayDTO)
+			throws Exception {
+		LocalDate today = LocalDate.now();
+		int currentMonth = today.getMonthValue();
+		int currentYear = today.getYear();
+		
+
+
+		if (holidayDTO.getStartDate().getMonthValue() > currentMonth + 1
+				|| (holidayDTO.getStartDate().getMonthValue() == 1 && currentMonth == 12
+						&& holidayDTO.getStartDate().getYear() > currentYear + 1)) {
+			throw new RuntimeException("Start date is too far ahead compared to today's date. Not considered.");
+		}
+
+		Employee employee = this.empRepo.findByEmployeeId(empId)
+				.orElseThrow(() -> new ResourceNotFoundException("Employee", "id", empId));
+
+		holidayDTO.setEmployee(employee);
+		holidayDTO.setBranch(employee.getBranch());
+		DeclaredHoliday map = this.mapper.map(holidayDTO, DeclaredHoliday.class);
+		DeclaredHoliday save = this.holidayRepo.save(map);
+		DeclaredHolidayDTO dto = this.mapper.map(save, DeclaredHolidayDTO.class);
+		return dto;
+	}
+
+}

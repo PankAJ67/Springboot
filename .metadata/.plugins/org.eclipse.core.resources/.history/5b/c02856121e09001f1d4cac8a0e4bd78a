@@ -1,0 +1,71 @@
+package com.hrms.service.impl;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.hrms.dto.EmployeeDto;
+import com.hrms.entity.Employee;
+import com.hrms.repo.EmployeeRepo;
+import com.hrms.service.EmployeeService;
+
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+
+	@Autowired
+	private EmployeeRepo employeeRepo;
+	
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	
+
+	public Employee createEmployee(Employee employeee) {
+	  Employee EmployeeSavedToDB = this.employeeRepo.save(employeee);
+    return EmployeeSavedToDB;
+	}	
+//	
+//	 public EmployeeDto getEmployee(String  userId) {
+//	        Employee user = this.employeeRepo.findById(userId);
+//	   
+//	        return user;
+//	    }
+	
+	
+	
+	 
+	    public EmployeeDto getUser(String userId) {
+	        Employee user = this.employeeRepo.findById(userId).get();
+	        EmployeeDto employeeDto = this.modelMapper.map(Employee, EmployeeDto.class);
+	        return employeeDto;
+	    }
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+}
+	 
+	 
+	
+//    public Employee getEmployee(String  userId) {
+//        Employee user = this.employeeRepo.getById(user Id);
+//        return user;
+//    }
+    
+    
+	
+	
+	
+	
+
+

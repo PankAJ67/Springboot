@@ -1,0 +1,16 @@
+package com.hrms.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.hrms.repo.EmployeeRepo;
+
+public class EmployeeService {
+	
+	@Autowired
+	private EmployeeRepo  employeeRepo;
+	
+	
+	private 
+	
+
+}

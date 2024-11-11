@@ -1,0 +1,184 @@
+package com.hrms.dto;
+
+import java.time.LocalDate;
+
+import jakarta.persistence.Column;
+import lombok.Data;
+
+
+public class EmployeeDto {
+	
+
+	private Long MobileNumber;
+	private LocalDate dateOfBirth;
+	private String Nationality;
+
+	@Column(unique=true)
+	private String emailAddress;
+	private String address;
+	private String city;
+    private int salary;
+	private String EmployeeType;
+	private String officeLocation;
+	private String designation;
+	private int workingDays;
+	private String department;
+	private LocalDate JoiningDate;
+
+	
+	public EmployeeDto(Long mobileNumber, LocalDate dateOfBirth, String nationality, String emailAddress,
+			String address, String city, int salary, String employeeType, String officeLocation, String designation,
+			int workingDays, String department, LocalDate joiningDate) {
+		super();
+		MobileNumber = mobileNumber;
+		this.dateOfBirth = dateOfBirth;
+		Nationality = nationality;
+		this.emailAddress = emailAddress;
+		this.address = address;
+		this.city = city;
+		this.salary = salary;
+		EmployeeType = employeeType;
+		this.officeLocation = officeLocation;
+		this.designation = designation;
+		this.workingDays = workingDays;
+		this.department = department;
+		JoiningDate = joiningDate;
+	}
+
+
+	public Long getMobileNumber() {
+		return MobileNumber;
+	}
+
+
+	public void setMobileNumber(Long mobileNumber) {
+		MobileNumber = mobileNumber;
+	}
+
+
+	public LocalDate getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+
+	public String getNationality() {
+		return Nationality;
+	}
+
+
+	public void setNationality(String nationality) {
+		Nationality = nationality;
+	}
+
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+	public String getCity() {
+		return city;
+	}
+
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+
+	public int getSalary() {
+		return salary;
+	}
+
+
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
+
+
+	public String getEmployeeType() {
+		return EmployeeType;
+	}
+
+
+	public void setEmployeeType(String employeeType) {
+		EmployeeType = employeeType;
+	}
+
+
+	public String getOfficeLocation() {
+		return officeLocation;
+	}
+
+
+	public void setOfficeLocation(String officeLocation) {
+		this.officeLocation = officeLocation;
+	}
+
+
+	public String getDesignation() {
+		return designation;
+	}
+
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
+
+	public int getWorkingDays() {
+		return workingDays;
+	}
+
+
+	public void setWorkingDays(int workingDays) {
+		this.workingDays = workingDays;
+	}
+
+
+	public String getDepartment() {
+		return department;
+	}
+
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+
+	public LocalDate getJoiningDate() {
+		return JoiningDate;
+	}
+
+
+	public void setJoiningDate(LocalDate joiningDate) {
+		JoiningDate = joiningDate;
+	}
+	
+	
+	
+	
+	
+	
+
+}

@@ -1,0 +1,45 @@
+package com.hrms.dto;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import com.hrms.entity.Project;
+
+import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class EmployeeDto {
+	private Integer Employee_Id;
+
+	private Long MobileNumber;
+	private LocalDate dateOfBirth;
+	private String Nationality;
+
+	@Column(unique=true)
+	private String emailAddress;
+	private String address;
+	private String city;
+    private int salary;
+	private String EmployeeType;
+	private String officeLocation;
+	private String designation;
+	private int workingDays;
+	private String department;
+	private LocalDate JoiningDate;
+
+	private String profilePath;
+	private String appoinmentLetterPath;
+     private String relivingLetterPath ;
+     private String experienceLetterPath;
+	
+	private List<Project> project;
+
+
+}

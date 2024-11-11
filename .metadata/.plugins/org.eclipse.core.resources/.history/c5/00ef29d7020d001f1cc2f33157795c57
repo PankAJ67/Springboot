@@ -1,0 +1,41 @@
+package com.hrms.service.impl;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.hrms.dto.ProjectDto;
+import com.hrms.entity.Project;
+import com.hrms.repo.ProjectRepo;
+
+
+
+public class ProjectServiceImpl {
+	
+	
+	
+	@Autowired
+	private ProjectRepo  projectRepository;
+	
+	
+	@Autowired
+ private ModelMapper modelMapper;
+	
+	
+@Override
+	public Project createProject(ProjectDto projectdto)
+	{ 
+	 
+	      Project project =  modelMapper.map(projectdto,Project.class);
+	      
+	     
+	      projectRepository.save(project);
+	      
+
+	
+	return  modelMapper.map(project, ProjectDto.class);
+	
+	}
+ 
+	
+
+}

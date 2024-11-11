@@ -1,0 +1,15 @@
+package com.studentapp.entities;
+
+import jakarta.persistence.Id;
+
+
+
+public class User {
+	
+	@Id
+	private int laptopId;
+	private String modelNumber;
+	private String brand;
+	
+
+}

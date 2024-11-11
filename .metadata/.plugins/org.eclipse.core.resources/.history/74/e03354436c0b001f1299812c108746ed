@@ -1,0 +1,27 @@
+package com.hrms.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.hrms.dto.EmployeeDto;
+import com.hrms.entity.Employee;
+
+@Service
+public interface EmployeeService {
+
+	public Employee createEmployee(Employee employee);
+
+	public EmployeeDto getEmployee(int Id);
+
+	List<EmployeeDto> getAllEmployee();
+	
+	void deletePost(int id);
+
+
+	
+	public EmployeeDto update(int id, Employee employee);
+
+	
+ 
+}

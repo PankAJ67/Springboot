@@ -1,0 +1,117 @@
+package com.hrms;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
+import com.hrms.entity.Employee;
+import com.hrms.entity.Leaves;
+import com.hrms.repo.BranchRepository;
+import com.hrms.repo.DeclaredHolidayRepository;
+import com.hrms.repo.EmployeeLeaveRepository;
+import com.hrms.repo.EmployeeRepository;
+import com.hrms.repo.SalaryRepository;
+
+@EnableScheduling
+@SpringBootApplication
+public class HrmsBackendApplication implements CommandLineRunner {
+
+	@Autowired
+	private EmployeeRepository empRepo;
+
+	@Autowired
+	private EmployeeLeaveRepository leaveRepo;
+
+	@Autowired
+	private SalaryRepository salaryRepo;
+	
+	@Autowired
+	private BranchRepository branchRepo;
+	
+	@Autowired
+	private DeclaredHolidayRepository holidayRepo;
+
+	public static void main(String[] args) {
+		SpringApplication.run(HrmsBackendApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		LocalDate now = LocalDate.now();
+		int currentMonth = now.getMonthValue();
+		int currentYear = now.getYear();
+
+		List<Employee> employees = empRepo.findAll();
+		for (Employee employee : employees) {
+			List<Leaves> acceptedLeaves = leaveRepo.findAcceptedLeavesByEmployeeIdAndMonth(employee.getId(),
+					currentMonth, currentYear);
+
+			int acceptedLeaveDays = calculateTotalWorkingDaysInMonth(acceptedLeaves, currentMonth, currentYear);
+			System.out.println(employee.getFirstName() + " ----" + acceptedLeaveDays);
+			int totalLeaveToAdd;
+ 
+		 
+			System.out.println("casual leave "+employee.getFirstName() + " ----" + employee.getCasualLeave());
+	  		employee.setCasualLeave(employee.getCasualLeave() + 1); // Adding back one day as per logic
+
+			if (employee.getCasualLeave() >= acceptedLeaveDays) {
+				// If casual leave is sufficient to cover all leave days
+				employee.setCasualLeave(employee.getCasualLeave() - acceptedLeaveDays);
+				totalLeaveToAdd = 0;
+			} else {
+				// If casual leave is not sufficient
+				totalLeaveToAdd = acceptedLeaveDays - employee.getCasualLeave();
+				System.out.println("totoal leave add "+totalLeaveToAdd);
+				employee.setCasualLeave(0); // All casual leaves are used up
+			}
+
+	
+			employee.setTotalLeave(totalLeaveToAdd);
+			System.out.println( "total leave "+employee.getFirstName() + " ----" + totalLeaveToAdd);
+			employee.setTotalAttendance(0);
+		}
+	}
+
+	private int calculateTotalWorkingDaysInMonth(List<Leaves> leaves, int month, int year) {
+		int totalDays = 0;
+		for (Leaves leave : leaves) {
+			LocalDate start = leave.getStartDate();
+			LocalDate end = leave.getEndDate();
+
+			// Adjust the start and end dates to the bounds of the specified month and year
+			LocalDate monthStart = LocalDate.of(year, month, 1);
+			LocalDate monthEnd = monthStart.withDayOfMonth(monthStart.lengthOfMonth());
+
+			if (start.isBefore(monthStart)) {
+				start = monthStart;
+			}
+			if (end.isAfter(monthEnd)) {
+				end = monthEnd;
+			}
+
+			// Calculate the number of working days within the adjusted period
+			totalDays += calculateWorkingDaysBetween(start, end);
+		}
+		return totalDays;
+	}
+
+	private int calculateWorkingDaysBetween(LocalDate start, LocalDate end) {
+		int workingDays = 0;
+		while (!start.isAfter(end)) {
+			// Assuming a 5-day workweek (Monday to Friday)
+			if (start.getDayOfWeek() != DayOfWeek.SATURDAY && start.getDayOfWeek() != DayOfWeek.SUNDAY) {
+				workingDays++;
+			}
+			start = start.plusDays(1);
+		}
+		return workingDays;
+	}
+
+	}
+

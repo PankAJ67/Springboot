@@ -1,0 +1,10 @@
+package com.hrms.dto;
+
+public class UploadDto {
+	
+	private String filepath;
+	
+	
+	
+
+}

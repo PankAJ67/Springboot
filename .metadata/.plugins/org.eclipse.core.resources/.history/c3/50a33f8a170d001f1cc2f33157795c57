@@ -1,0 +1,80 @@
+package com.hrms.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.hrms.dto.EmployeeDto;
+import com.hrms.dto.ProjectDto;
+import com.hrms.entity.Project;
+import com.hrms.service.ProjectService;
+
+@RestController
+public class ProjectController {
+	
+	
+	@Autowired
+	private ProjectService projectService;
+	
+	
+	@PostMapping("/project/add")
+	public ResponseEntity<ProjectDto> createUser(@RequestBody ProjectDto projectDto) {
+ProjectDto employee  = 	 projectService.createProject(projectDto);
+ return new   ResponseEntity<ProjectDto>(employee, HttpStatus.CREATED);
+	
+	}	
+	
+	
+	 @GetMapping("/project/get") 
+  public ResponseEntity<ProjectDto> getAllProject()
+  {
+	  List<ProjectDto> project =  projectService.getAllProject();
+ return new ResponseEntity<ProjectDto>(HttpStatus.OK);
+  }
+	
+	
+
+		@GetMapping("/project/{id}")
+		public ResponseEntity<ProjectDto> getProject(@PathVariable("id") long Id) 
+		{
+	ProjectDto projectDto =	projectService.getProject(Id);
+		System.out.println("Projectone");
+				return new  ResponseEntity<ProjectDto>( projectDto,HttpStatus.OK );
+
+			
+		}
+
+	
+		
+		 @DeleteMapping("project/{id}")
+			public ResponseEntity<ProjectDto> deletePost(@PathVariable(name = "id") long id) {
+			 projectService.deleteProject(id);
+		ProjectDto apiResponse = new ProjectDto();
+				return new ResponseEntity<ProjectDto>(apiResponse, HttpStatus.OK);
+			}
+		 
+		 
+		 @PutMapping("project/{id}")
+			public ResponseEntity<EmployeeDto> updatePost(@PathVariable long id, @RequestBody ProjectDto projectDto) {
+
+				// convert DTO to Entity
+
+        ProjectDto post = projectService.updateproject(id, projectDto);
+				return ResponseEntity.ok().body(post);
+			}
+
+		
+	
+	
+	
+
+}

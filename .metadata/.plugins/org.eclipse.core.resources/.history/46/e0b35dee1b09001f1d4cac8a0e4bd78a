@@ -1,0 +1,32 @@
+package com.hrms.service;
+
+
+
+import org.springframework.stereotype.Service;
+
+import com.hrms.dto.EmployeeDto;
+import com.hrms.entity.Emp
+import com.hrms.entity.Employee;
+import com.hrms.dto.EmployeeDto;
+e;
+
+@Service
+public interface  EmployeeService {
+
+//	public List<Employee> getAllBook() ;
+//
+//	public Employee getEmployeeById(String id) ;
+
+	 public Employee createEmployee(Employee employee);
+
+	 
+    public EmployeeDto getEmployee(String  userId);
+
+//	public void save(Employee employee);
+
+//	public List<Employee> findAll(); 
+//
+//	public Object findById(String id);
+
+  
+}

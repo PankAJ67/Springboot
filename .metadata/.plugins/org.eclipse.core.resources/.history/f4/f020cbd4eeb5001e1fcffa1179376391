@@ -1,0 +1,18 @@
+package com.spring.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+public class User {
+	
+	@NoArgsConstructor
+	@Data
+	@Entity
+	@Table
+private String userId;
+private String password;
+
+
+}
